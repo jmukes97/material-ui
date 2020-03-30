@@ -40,7 +40,69 @@ export interface TreeViewPropsBase
    * @param {array} nodeIds The ids of the expanded nodes.
    */
   onNodeToggle?: (event: React.ChangeEvent<{}>, nodeIds: string[]) => void;
-}
+      /**
+     * Optional custom logic to lazy load tree items
+     */
+    addNode?: () => void;
+   /**
+   * Function that renders each tree item. This function will have nodes yeilded to it by the tree walker
+   *
+   * @param {object} data can be used to get current node
+   * @param {object} style default css properties. These can be edited
+   * @param {function} toggle the function that handles expanding or closing
+   * @param {boolean} isOpen determines the open state of a node
+   */
+    render?: (data: Object, isOpen: boolean, style: object, toggle: function) => void;
+    
+    /**
+     * Used for react vtree to control how large a node item is   
+     */
+    itemSize?: number;
+    
+    /**
+     * height of the tree
+     */
+    height?: number;
+
+    /**
+     * Width of the tree
+     */
+    width?: number;
+
+    /**
+     * A custom tree walker only needed if youre tree structure isnt {children: array, id, name: string}
+     * The treewalker needs to be a generator function that will yeild each node on the tree in order.
+     * It will be used to pass each node to render
+     * @param {boolean} refresh check if tree needs to be refreshed 
+     */
+    walker?:(refresh: boolean) => void;
+
+    /**
+     * The base tree data needed if the tree is virtual
+     */
+    data?: object
+
+    /**
+     * Determins whether or not the tree should be virtual
+     */
+    virtual?: boolean;
+
+    /**
+     * Callback that is run everytime a node is expanded
+     * if nodes are returned they will be children to the expanded node
+     * @param {object} event 
+     * @param {string} nodeId the id of a node that was expanded
+     */
+    onNodeExpanded?:(event: object, nodeId: string) => void;
+
+    /**
+     * callback that is called when a node colapses
+     * This wont lazy load anything.
+     * @param {object} event
+     * @param {string} nodeId
+     */
+    onNodeCollapsed?:(event: object, nodeId: string) => void;
+  }
 
 export interface MultiSelectTreeViewProps extends TreeViewPropsBase {
   /**
@@ -64,7 +126,8 @@ export interface MultiSelectTreeViewProps extends TreeViewPropsBase {
    * @param {(array|string)} value of the selected nodes. When `multiSelect` is true
    * this is an array of strings; when false (default) a string.
    */
-  onNodeSelect?: (event: React.ChangeEvent<{}>, nodeIds: string[]) => void;
+    onNodeSelect?: (event: React.ChangeEvent<{}>, nodeIds: string[]) => void;
+
 }
 
 export interface SingleSelectTreeViewProps extends TreeViewPropsBase {

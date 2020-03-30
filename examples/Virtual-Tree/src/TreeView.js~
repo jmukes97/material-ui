@@ -40,7 +40,6 @@ const defaultSelectedDefault = [];
 
 const TreeView = React.forwardRef(function TreeView(props, ref) {
     const {
-	addNode,
 	render,
 	itemSize,
 	height,

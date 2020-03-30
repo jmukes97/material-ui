@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 import { fade, withStyles, useTheme } from '@material-ui/core/styles';
 import { useForkRef } from '@material-ui/core/utils';
-import TreeViewContext from '../TreeView/TreeViewContext';
+import TreeViewContext from './TreeViewContext';
 
 export const styles = theme => ({
   /* Styles applied to the root element. */
